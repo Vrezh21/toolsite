@@ -6,6 +6,9 @@ export const metadata: Metadata = {
     default: "ToolSite – Online Tools & Calculators",
     template: "%s | ToolSite",
   },
+  verification: {
+    google: "XXXXXXXX",
+  },
   description:
     "Free online tools and calculators including password generator, JSON formatter, text tools, unit converter and more.",
   keywords: [
