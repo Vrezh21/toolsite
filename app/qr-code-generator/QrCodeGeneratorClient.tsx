@@ -7,6 +7,7 @@ import SeoContent from "@/components/SeoContent";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import ToolStructuredData from "@/components/ToolStructuredData";
+// @ts-ignore
 import QRCode from "qrcode";
 
 export default function QrCodeGeneratorClient() {
