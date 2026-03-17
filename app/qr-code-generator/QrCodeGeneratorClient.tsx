@@ -1,52 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SeoContent from "@/components/SeoContent";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedTools from "@/components/RelatedTools";
 import ToolStructuredData from "@/components/ToolStructuredData";
-// @ts-ignore
-import QRCode from "qrcode";
 
 export default function QrCodeGeneratorClient() {
   const [text, setText] = useState("https://example.com");
   const [size, setSize] = useState("256");
-  const [qrDataUrl, setQrDataUrl] = useState("");
-  const [error, setError] = useState("");
 
-  useEffect(() => {
-    const generateQr = async () => {
-      if (!text.trim()) {
-        setQrDataUrl("");
-        setError("");
-        return;
-      }
+  const qrUrl = useMemo(() => {
+    const trimmed = text.trim();
+    const sizeValue = Math.min(Math.max(Number(size) || 256, 128), 1024);
 
-      try {
-        const url = await QRCode.toDataURL(text, {
-          width: Number(size) || 256,
-          margin: 2,
-        });
-        setQrDataUrl(url);
-        setError("");
-      } catch {
-        setQrDataUrl("");
-        setError("Failed to generate QR code");
-      }
-    };
+    if (!trimmed) return "";
 
-    generateQr();
+    return `https://api.qrserver.com/v1/create-qr-code/?size=${sizeValue}x${sizeValue}&data=${encodeURIComponent(
+      trimmed
+    )}`;
   }, [text, size]);
 
-  const handleDownload = () => {
-    if (!qrDataUrl) return;
+  const handleDownload = async () => {
+    if (!qrUrl) return;
 
-    const link = document.createElement("a");
-    link.href = qrDataUrl;
-    link.download = "qr-code.png";
-    link.click();
+    try {
+      const response = await fetch(qrUrl);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "qr-code.png";
+      link.click();
+
+      URL.revokeObjectURL(blobUrl);
+    } catch {
+      window.open(qrUrl, "_blank");
+    }
   };
 
   return (
@@ -101,21 +94,15 @@ export default function QrCodeGeneratorClient() {
                 className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-slate-500"
               />
             </div>
-
-            {error ? (
-              <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-red-700">
-                {error}
-              </div>
-            ) : null}
           </div>
 
           <div className="rounded-2xl border border-slate-300 bg-white p-6 shadow-sm">
             <div className="text-sm text-slate-500">QR code preview</div>
 
             <div className="mt-4 flex min-h-[320px] items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              {qrDataUrl ? (
+              {qrUrl ? (
                 <img
-                  src={qrDataUrl}
+                  src={qrUrl}
                   alt="Generated QR code"
                   className="max-h-[280px] max-w-full"
                 />
@@ -127,7 +114,7 @@ export default function QrCodeGeneratorClient() {
             <div className="mt-4">
               <button
                 onClick={handleDownload}
-                disabled={!qrDataUrl}
+                disabled={!qrUrl}
                 className="rounded-xl bg-slate-900 px-4 py-2 text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Download PNG
