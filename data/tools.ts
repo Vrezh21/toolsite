@@ -1,5 +1,11 @@
 export const tools = [
     {
+        slug: "vast-tag-tester",
+        name: "VAST Tag Tester",
+        category: "tools",
+        description: "Test VAST, VMAP, and VPAID ad tags online",
+    },
+    {
         slug: "age-calculator",
         name: "Age Calculator",
         category: "calculators",
@@ -197,4 +203,5 @@ export const tools = [
         category: "tools",
         description: "Validate UUID format online",
     },
+
 ];
