@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ToolSite: free online tools and calculators
 
-## Getting Started
+**Live:** [toolsite-pink.vercel.app](https://toolsite-pink.vercel.app)
 
-First, run the development server:
+![ToolSite home page](screenshot.png)
+
+A fast collection of everyday tools that run right in the browser, with no sign-up and nothing to install.
+
+## What's inside
+
+- **Calculators:** age, BMI, loan, percentage, percentage change, unit converter
+- **Text tools:** word counter, character counter, case converter, text diff checker, text repeater, lorem ipsum generator, HTML to text
+- **Developer tools:** JSON formatter and minifier, CSV to JSON, Base64 and URL encoder/decoder, UUID generator and validator, timestamp converter, slug generator, VAST tag tester
+- **Utilities:** password generator and strength checker, QR code generator, color picker and converter, email and URL extractors and validators, random number generator
+
+## Built with
+
+- Next.js (App Router) and TypeScript
+- One shared tool registry (`data/tools.ts`) that drives navigation, search and categories
+- SEO basics: `sitemap.ts`, `robots.ts`, page metadata, privacy policy and terms pages
+- Deployed on Vercel
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Made by TechLab. Need a website or web tool? [Hire me on Upwork](https://www.upwork.com/freelancers/~01b4f473f91da148f5).
